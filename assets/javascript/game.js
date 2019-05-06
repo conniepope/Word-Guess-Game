@@ -1,8 +1,8 @@
 
     
- /*  As the user guesses the correct letters, change corresponding underscore into letter
-
-Save any of your game's functions as methods, and call them underneath your object declaration using event listeners.
+ /* 
+Save any of your game's functions as methods, and call them underneath your object declaration using
+EVENT LISTENERS.
 
 Don't forget to place your global variables and functions above your object. */
 
@@ -11,6 +11,7 @@ Don't forget to place your global variables and functions above your object. */
 /*  VARIABLES  */
  var wins = 0
  var losses = 0
+ var currentWordIndex = 0
  var currentWord = ["venezuela", "mozambique", "madagascar"]
  var numGuessRemain
  var lettersGuessed
@@ -29,8 +30,11 @@ var venezuela = {
     letters: [v, e, n, e, z, u, e, l, a],
     guesses: 9,
     runVenezuela: function() {
-        /*   return "_ _ _ _ _ _ _ _"  */
 
+        currentWordText = "_ _ _ _ _ _ _ _ _";
+
+        /* how to replace underscores with proper letter when pushed?. Push to an index #?    */
+        
         for (var i = 0; i < letters.length; i++) {
             if (numGuessRemain === 0) {
                 losses++
@@ -52,7 +56,7 @@ var venezuela = {
             }
         }
     }
-
+/* How to end word round and start new one? */
 
 
 };
@@ -62,48 +66,30 @@ var mozambique = {
 };
 
 
-/*  FUNCTIONS  */
+/*  MAIN FUNCTIONS  */
 
 /* auto-select a word from the currentWord array, then run the function that applies. */
 for (var i = 0; i < currentWord.length; i++) {
     currentWord[i]
 }
-    
-    
+/* make the # of spaces = the # of letters in the word, and # of guesses remaining to be set as # of guesses set for that word. */    
+ 
+if (currentWord[i] === venezuela) {
+    venezuela.runVenezuela();
+    /* write _ _ _ _ _ _ _ _ _          .toUpperCase    */
+}
 
 /*   Use key events to listen for the letters that your players will type.  */
 document.onkeyup = function (event) {
     keyPress = event.key;
 }
 
+ /* Determine if win or loss */
 
-if (currentWord === venezuela) {
-    runVenezuela();
-    /* write _ _ _ _ _ _ _ _ _ .toUpperCase
-
-    */
-}
-
-/*    
-
-if (currentWord[i].charAt(0) === "c" || currentWord[i].charAt(0) === "o") {
-          alert("Starts with a c or an o!");
-        }       ???? 
-        
-       */
-
-
- 
-
-/* 9. After the user wins/loses the game should automatically choose another word and make the user play it. 
+/* After the user wins/loses, the game should automatically choose another word and make the user play it. 
 
 
 /*  CALLS  */
-
-console.log(currentWord[i]);
-
-venezuela.runVenezuela();
-mozambique.runMozambique();
 
 
 winsText.textContent = "Wins: " + wins;
