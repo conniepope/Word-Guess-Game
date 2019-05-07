@@ -3,6 +3,7 @@
 /*  VARIABLES  */
  var wins = 0;
  var losses = 0;
+ var numGuessRemain = 0;
  var currentWord = ["venezuela", "mozambique", "madagascar", "portugal", "australia", "kazakhstan", "cameroon"];
 
  var winsText = document.getElementById("winsText");
@@ -10,13 +11,12 @@
 
  /* currentWordText needs connected in the code */
  var currentWordText = document.getElementById("currentWordText");
- var numGuessRemain = document.getElementById("numGuessRemainText");
- var lettersGuessed = document.getElementById("lettersGuessedText");
+ var numGuessRemainText = document.getElementById("numGuessRemainText");
+ var lettersGuessedText = document.getElementById("lettersGuessedText");
 
 
 /*  MAIN FUNCTIONS  */
 
-/*  key events to listen for the letters that players will type. FIND OUT HOW THIS WORKS AND PROPER PLACEMENT FOR IT. */
 document.onkeyup = function (event) {
     var keyPress = event.key;
                
@@ -68,8 +68,9 @@ document.onkeyup = function (event) {
 
 
 /* coming up in console as "null"  ????*/
-winsText.textContent = "Wins: " + wins;    
+winsText.innerHTML = "Wins: " + wins;    
 lossesText.textContent = "Losses: " + losses;
+currentWordText.textContent = answer.join(" ");
 numGuessRemainText.textContent = "Number of Guesses Remaining: " + numGuessRemain;
 lettersGuessedText.textContent = "Letters Already Guessed: " + lettersGuessed.toUpperCase;
 
@@ -80,7 +81,6 @@ lettersGuessedText.textContent = "Letters Already Guessed: " + lettersGuessed.to
 
 /*   
 
-currentWordText.textContent = answer.join(" ");   
 
 innerHTML instead of textContent ???
 
