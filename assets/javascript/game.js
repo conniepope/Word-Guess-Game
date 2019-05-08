@@ -4,35 +4,56 @@
  var wins = 0;
  var losses = 0;
  var numGuessRemain = 0;
+ var lettersGuessed = " ";
  var currentWord = ["venezuela", "mozambique", "madagascar", "portugal", "australia", "kazakhstan", "cameroon"];
-
+ var answer = [];
+ //  var answer = currentWord[i]; ???
+ var event;
  var winsText = document.getElementById("winsText");
  var lossesText = document.getElementById("lossesText");
-
- /* currentWordText needs connected in the code */
  var currentWordText = document.getElementById("currentWordText");
  var numGuessRemainText = document.getElementById("numGuessRemainText");
  var lettersGuessedText = document.getElementById("lettersGuessedText");
 
+ /* FUNCTIONS */
+        
+ /* picks random word */
+ var word = function () {
+     currentWord[Math.floor(Math.random() * currentWord.length)];
+ }
+
+/* display numbGuessRemain */
+ var display = function () {
+   numGuessRemain = word.length;
+    }
+
+/* displays answer spaces  -- doesn't work  */
+ var spaces = function () {
+    for (var i = 0; i < word.length; i++) {
+        answer[i] = " _";
+    }
+ }
+
 
 /*  MAIN FUNCTIONS  */
 
+/* when a key is pressed, the game starts. Need a function that starts game.  */
+
+var gameStart = function () {
+        word();
+        display();
+        spaces();
+}
+
+
 document.onkeyup = function (event) {
-    var keyPress = event.key;
-               
-    /* picks random word */
-    var word = currentWord[Math.floor(Math.random() * currentWord.length)]; 
-
-    /* answer array - setup */
-    var answer = [];
-    for (var i = 0; i < word.length; i++) {
-        answer[i] = "_";
-    }
-    var numGuessRemain = word.length;
-
+    keyPress = event.key;
+}
 /* game loop */
 
     while (numGuessRemain > 0) {
+        console.log(answer.join("_"));
+
             
         /* to make letters appear in place of underscores */
 
@@ -43,7 +64,7 @@ document.onkeyup = function (event) {
             }
         /* if not a letter in the word */
             else if (word[i] !== keyPress) {
-                (lettersGuessed + " "  + keyPress);
+                (lettersGuessed.push + " " + keyPress);
                 numGuessRemain--;
             }
 
@@ -60,19 +81,19 @@ document.onkeyup = function (event) {
         } else {
             losses++;
         }; 
-    }
-}       
+    };
+       
 
 
 /*  CALLS  */
-
+gameStart();
 
 /* coming up in console as "null"  ????*/
-winsText.innerHTML = "Wins: " + wins;    
+winsText.textContent = "Wins: " + wins;    
 lossesText.textContent = "Losses: " + losses;
-currentWordText.textContent = answer.join(" ");
+currentWordText.textContent = answer;
 numGuessRemainText.textContent = "Number of Guesses Remaining: " + numGuessRemain;
-lettersGuessedText.textContent = "Letters Already Guessed: " + lettersGuessed.toUpperCase;
+lettersGuessedText.innerHTML = "Letters Already Guessed: " + lettersGuessed.toUpperCase();
 
 
 
@@ -92,9 +113,3 @@ object with method????
     
 
 */
-
-
-
-
-
-
