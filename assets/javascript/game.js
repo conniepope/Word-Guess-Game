@@ -3,113 +3,103 @@
 /*  VARIABLES  */
  var wins = 0;
  var losses = 0;
- var numGuessRemain = 0;
+ var numGuessRemain = 10;
  var lettersGuessed = " ";
  var currentWord = ["venezuela", "mozambique", "madagascar", "portugal", "australia", "kazakhstan", "cameroon"];
- var answer = [];
- //  var answer = currentWord[i]; ???
- var event;
- var winsText = document.getElementById("winsText");
- var lossesText = document.getElementById("lossesText");
- var currentWordText = document.getElementById("currentWordText");
- var numGuessRemainText = document.getElementById("numGuessRemainText");
- var lettersGuessedText = document.getElementById("lettersGuessedText");
+ var keyPress;
+
+ var correctCharacters;
+ var gameInProgress = true;
 
  /* FUNCTIONS */
         
  /* picks random word */
- var word = function () {
-     currentWord[Math.floor(Math.random() * currentWord.length)];
- }
+ var word = currentWord[Math.floor(Math.random() * currentWord.length)].toUpperCase();
+ console.log(word)
 
-/* display numbGuessRemain */
- var display = function () {
-   numGuessRemain = word.length;
+
+/* displays answer spaces */
+var answer = [];
+for (var i = 0; i < word.length; i++) {
+    var x = word.charAt(i);
+
+    if(x === " " || x === "/'")
+    {
+      answer += x;
     }
+    else {
+      answer += "_ ";
+    }   
+};
+ console.log(answer)
 
-/* displays answer spaces  -- doesn't work  */
- var spaces = function () {
-    for (var i = 0; i < word.length; i++) {
-        answer[i] = " _";
-    }
- }
+ 
+/*   FUNCTIONS  */
 
-
-/*  MAIN FUNCTIONS  */
-
-/* when a key is pressed, the game starts. Need a function that starts game.  */
+/* when a key is pressed, the game starts. */
 
 var gameStart = function () {
-        word();
-        display();
-        spaces();
+
 }
 
-
-document.onkeyup = function (event) {
-    keyPress = event.key;
-}
 /* game loop */
 
-    while (numGuessRemain > 0) {
-        console.log(answer.join("_"));
+document.onkeyup = function (event) {
+    if (gameInProgress = false) {
+        gameStart(); /*hide "press any key" text */
+    } else {
+        gamePlay();
+    }
+}
 
-            
-        /* to make letters appear in place of underscores */
+var gamePlay = function () {
 
-        for (var i = 0; i < word.length; i++) {
-            if (word[i] === keyPress) {
-                answer[i] = keyPress;
-                numGuessRemain--;
-            }
-        /* if not a letter in the word */
-            else if (word[i] !== keyPress) {
-                (lettersGuessed.push + " " + keyPress);
-                numGuessRemain--;
+    document.onkeyup = function (event) {
+        keypress = event.key;
+    
+            /* to make letters appear in place of underscores */
+            for (var i = 0; i < word.length; i++) {
+                if (word[i] === keyPress) {
+                    correctCharacters.push(word[i]);
+                    numGuessRemain--;
+                }
+            /* if not a letter in the word */
+                else if (word[i] !== keyPress) {
+                    (lettersGuessed.push + " " + keyPress);
+                    numGuessRemain--;
+                }
+            /* if letter already pressed, do not take away guesses    */
+                else if (keyPress === letterGuessed) {
+                        numGuessRemain + 0;
+                }
             }
 
-        /* if letter already pressed, do not take away guesses    */
-            else if (keyPress === letterGuessed) {
-                    numGuessRemain + 0;
-            }
+            /* Determine if win or loss. Automatically choose another word to be played. */
+            if (numGuessRemain === 0 && answer === word) {
+                wins++;
+
+            } else if
+                (numGuessRemain === 0 && answer !== word) {
+                losses++;
+
+            }; 
         }
-
-        /* Determine if win or loss. Automatically choose another word to be played. */
-
-        if (numGuessRemain === 0 && answer === word) {
-            wins++;
-        } else {
-            losses++;
-        }; 
-    };
-       
+}
 
 
 /*  CALLS  */
-gameStart();
 
-/* coming up in console as "null"  ????*/
-winsText.textContent = "Wins: " + wins;    
-lossesText.textContent = "Losses: " + losses;
-currentWordText.textContent = answer;
-numGuessRemainText.textContent = "Number of Guesses Remaining: " + numGuessRemain;
-lettersGuessedText.innerHTML = "Letters Already Guessed: " + lettersGuessed.toUpperCase();
+    /* game is not started, then start. if game is started... */
 
 
 
+document.querySelector("#winsText").innerHTML = "Wins: " + wins;
+document.querySelector("#lossesText").innerHTML = "Losses: " + losses;
+document.querySelector("#numGuessRemainText").innerHTML = "Number of Guesses Remaining: " + numGuessRemain;
+document.querySelector("#lettersGuessedText").innerHTML = "Letters Already Guessed: " + lettersGuessed.toUpperCase();
+document.querySelector("#currentWordText").innerHTML = answer;
 
-/* OTHER IDEAS */
-
-/*   
 
 
-innerHTML instead of textContent ???
 
-auto-select a word from the currentWord array, then run the function that applies. 
 
-object with method????
-    if (currentWord[i] === venezuela) {
-        venezuela.runVenezuela();
-    
-
-*/
