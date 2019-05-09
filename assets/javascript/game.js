@@ -9,15 +9,13 @@
  var keyPress;
 
  var gameInProgress = true;
-
- /* FUNCTIONS */
         
  /* picks random word */
  var word = currentWord[Math.floor(Math.random() * currentWord.length)].toUpperCase();
  console.log(word)
 
 
-/* displays answer spaces */
+/* displays answer spaces (without commas) */
 var answer = [];
 for (var i = 0; i < word.length; i++) {
     var x = word.charAt(i);
@@ -39,8 +37,15 @@ for (var i = 0; i < word.length; i++) {
 var gameStart = function () {
 /*hide "press any key" text */
 
+    gameInProgress = false
+    numGuessRemain = 10;
+    word = currentWord[Math.floor(Math.random() * currentWord.length)].toUpperCase();
+    lettersGuessed = [];
+    answer = [];
+    updateDisplay();
+
 /* when a key is pressed, the game starts. */
-    document.onkeyup = function (event) {
+    document.onkeyup = function () {
         gamePlay();
     }
 }
@@ -49,17 +54,27 @@ var gameStart = function () {
 
 var gamePlay = function () {
 
-    gameinProgress = true;
+    gameInProgress = true;
     /* when i press a key */
     document.onkeyup = function (event) {
-        keypress = event.key.toLowerCase();
+        keyPress = event.key.toLowerCase();
     
-        /* make letters appear in place of underscores if they match the selected word */
+        /* make letters appear(.push?) in place of underscores (answer?) if they match the selected word */
         for (var i = 0; i < word.length; i++) {
             if (word[i] === keyPress) {
-                keyPress.push = answer[i].toUpperCase();
-                numGuessRemain--;
-                console.log(word[i] === keyPress) 
+                answer[i].push = keyPress.toUpperCase();
+                // word[i].push = answer[i].toUpperCase();  ???
+
+                // if (word.indexOf(keyPress) != -1) {
+                //     for (var i = 0; i < word.length; i++) {
+                //         if (word[i] == keyPress)
+                //             answer[i] = word[i]
+                // console.log(word[i] === keyPress)  
+                
+                // for (var i = 0; i < word.length; i++) {
+                //     if (word.indexOf[i] === keyPress) {
+                //     console.log("i work")}
+                //     }
             }
         /* if keyPress is NOT a letter in the word, add to lettersGuessed array & numGuessRemain deincrements*/
             else if (word[i] !== keyPress) {
@@ -82,7 +97,7 @@ var gamePlay = function () {
             (numGuessRemain === 0 && answer !== word) {
             losses++;
             /* show complete word */
-            
+
         }; 
             /* Automatically choose another word to be played. */
 
@@ -103,14 +118,13 @@ document.onkeyup = function (event) {
         gamePlay();
     }
 }
-
+var updateDisplay = function () {
 document.querySelector("#winsText").innerHTML = "Wins: " + wins;
 document.querySelector("#lossesText").innerHTML = "Losses: " + losses;
 document.querySelector("#numGuessRemainText").innerHTML = "Number of Guesses Remaining: " + numGuessRemain;
-document.querySelector("#lettersGuessedText").innerHTML = "Letters Already Guessed: " + lettersGuessed;
+document.querySelector("#lettersGuessedText").innerHTML = "incorrectLettersText" + incorrectLetters;
 document.querySelector("#currentWordText").innerHTML = answer;
-
-
+}
 
 
 
