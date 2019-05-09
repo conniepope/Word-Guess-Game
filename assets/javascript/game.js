@@ -4,11 +4,10 @@
  var wins = 0;
  var losses = 0;
  var numGuessRemain = 10;
- var lettersGuessed = " ";
+ var lettersGuessed = [];
  var currentWord = ["venezuela", "mozambique", "madagascar", "portugal", "australia", "kazakhstan", "cameroon"];
  var keyPress;
 
- var correctCharacters;
  var gameInProgress = true;
 
  /* FUNCTIONS */
@@ -36,67 +35,79 @@ for (var i = 0; i < word.length; i++) {
  
 /*   FUNCTIONS  */
 
-/* when a key is pressed, the game starts. */
 
 var gameStart = function () {
+/*hide "press any key" text */
 
-}
-
-/* game loop */
-
-document.onkeyup = function (event) {
-    if (gameInProgress = false) {
-        gameStart(); /*hide "press any key" text */
-    } else {
+/* when a key is pressed, the game starts. */
+    document.onkeyup = function (event) {
         gamePlay();
     }
 }
 
+/* game loop */
+
 var gamePlay = function () {
 
+    gameinProgress = true;
+    /* when i press a key */
     document.onkeyup = function (event) {
-        keypress = event.key;
+        keypress = event.key.toLowerCase();
     
-            /* to make letters appear in place of underscores */
-            for (var i = 0; i < word.length; i++) {
-                if (word[i] === keyPress) {
-                    correctCharacters.push(word[i]);
-                    numGuessRemain--;
-                }
-            /* if not a letter in the word */
-                else if (word[i] !== keyPress) {
-                    (lettersGuessed.push + " " + keyPress);
-                    numGuessRemain--;
-                }
-            /* if letter already pressed, do not take away guesses    */
-                else if (keyPress === letterGuessed) {
-                        numGuessRemain + 0;
-                }
+        /* make letters appear in place of underscores if they match the selected word */
+        for (var i = 0; i < word.length; i++) {
+            if (word[i] === keyPress) {
+                keyPress.push = answer[i].toUpperCase();
+                numGuessRemain--;
+                console.log(word[i] === keyPress) 
             }
+        /* if keyPress is NOT a letter in the word, add to lettersGuessed array & numGuessRemain deincrements*/
+            else if (word[i] !== keyPress) {
+                (lettersGuessed.push + " " + keyPress);
+                numGuessRemain--;
+                console.log(word[i] !== keyPress) 
 
-            /* Determine if win or loss. Automatically choose another word to be played. */
-            if (numGuessRemain === 0 && answer === word) {
-                wins++;
+            }
+        /* if letter already pressed, do not take away guesses & do not add it to the lettersGuessed array   */
+            else if (keyPress === letterGuessed) {
+                    numGuessRemain + 0;
+            }
+        };
 
-            } else if
-                (numGuessRemain === 0 && answer !== word) {
-                losses++;
+        /* Determine if win or loss.  */
+        if (numGuessRemain === 0 && answer === word) {
+            wins++;
 
-            }; 
-        }
+        } else if
+            (numGuessRemain === 0 && answer !== word) {
+            losses++;
+            /* show complete word */
+            
+        }; 
+            /* Automatically choose another word to be played. */
+
+        
+        console.log(event.key)
+
+    }        
+
 }
 
 
 /*  CALLS  */
 
-    /* game is not started, then start. if game is started... */
-
-
+document.onkeyup = function (event) {
+    if (gameInProgress = false) {
+        gameStart(); 
+    } else {
+        gamePlay();
+    }
+}
 
 document.querySelector("#winsText").innerHTML = "Wins: " + wins;
 document.querySelector("#lossesText").innerHTML = "Losses: " + losses;
 document.querySelector("#numGuessRemainText").innerHTML = "Number of Guesses Remaining: " + numGuessRemain;
-document.querySelector("#lettersGuessedText").innerHTML = "Letters Already Guessed: " + lettersGuessed.toUpperCase();
+document.querySelector("#lettersGuessedText").innerHTML = "Letters Already Guessed: " + lettersGuessed;
 document.querySelector("#currentWordText").innerHTML = answer;
 
 
