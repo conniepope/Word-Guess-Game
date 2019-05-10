@@ -64,6 +64,9 @@ var gamePlay = function () {
             if (word[i] === keyPress) {
                 answer[i].push = keyPress.toUpperCase();
                 // word[i].push = answer[i].toUpperCase();  ???
+                // keyPress = word.indexOf[i]     
+                // if (keyPress = word.charAt[i]) {
+//     if (word.indexOf(keyPress) > -1){
 
                 // if (word.indexOf(keyPress) != -1) {
                 //     for (var i = 0; i < word.length; i++) {
@@ -75,6 +78,17 @@ var gamePlay = function () {
                 //     if (word.indexOf[i] === keyPress) {
                 //     console.log("i work")}
                 //     }
+// var compareLetters = function (keyPress){
+
+                // var el = document.querySelector("#currentWordText");
+                // el.innerHTML = answer.join(" ");     
+//  function fillInWordWithLetter() {
+//     return word.toLowerCase().split('').map(l =>  {
+//     if (l === keyPress) {
+//         return l.toUpperCase()
+//     }
+//     return '_'
+//     }).join(' ')
             }
         /* if keyPress is NOT a letter in the word, add to lettersGuessed array & numGuessRemain deincrements*/
             else if (word[i] !== keyPress) {
